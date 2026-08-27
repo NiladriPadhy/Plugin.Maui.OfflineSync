@@ -20,8 +20,8 @@
     <PackageTags>dotnet-maui;maui;offline;sync;offline-first;sqlite;ios;android;plugin;synchronization</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/niladri/Plugin.Maui.OfflineSync</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/niladri/Plugin.Maui.OfflineSync</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IncludeSymbols>true</IncludeSymbols>
@@ -29,8 +29,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>portable</DebugType>
-    <Version>1.0.0</Version>
-    <PackageVersion>1.0.0</PackageVersion>
+    <Version>1.0.1</Version>
+    <PackageVersion>1.0.1</PackageVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <IsPackable>true</IsPackable>
