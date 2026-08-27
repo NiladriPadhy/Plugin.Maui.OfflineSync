@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Plugin.Maui.OfflineSync/Plugin.Maui.OfflineSync.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/Plugin.Maui.OfflineSync.Sample/Plugin.Maui.OfflineSync.Sample.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Plugin.Maui.OfflineSync.Tests/Plugin.Maui.OfflineSync.Tests.csproj" />
+  </Folder>
+</Solution>

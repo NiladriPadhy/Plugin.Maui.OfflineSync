@@ -1,0 +1,9 @@
+global using System.Collections.Concurrent;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Maui.Networking;
+global using Plugin.Maui.OfflineSync.Conflicts;
+global using Plugin.Maui.OfflineSync.Networking;
+global using Plugin.Maui.OfflineSync.Remote;
+global using Plugin.Maui.OfflineSync.Storage;
