@@ -1,10 +1,14 @@
 # Plugin.Maui.OfflineSync
 
+[![NuGet](https://img.shields.io/nuget/v/Plugin.Maui.OfflineSync.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Maui.OfflineSync)
+
 Offline-first data synchronization engine for .NET MAUI on **iOS** and **Android**.
 
 Local writes are persisted immediately (SQLite by default), queued in a change log, and synchronized when the device is online. Conflicts are resolved with a built-in strategy or your own merger.
 
 ## Install
+
+Package: [https://www.nuget.org/packages/Plugin.Maui.OfflineSync](https://www.nuget.org/packages/Plugin.Maui.OfflineSync)
 
 ```bash
 dotnet add package Plugin.Maui.OfflineSync
