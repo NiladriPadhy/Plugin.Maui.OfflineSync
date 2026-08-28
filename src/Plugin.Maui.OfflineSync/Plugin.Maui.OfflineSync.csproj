@@ -17,7 +17,7 @@
     <PackageId>Plugin.Maui.OfflineSync</PackageId>
     <Title>.NET MAUI OfflineSync — offline-first SQLite sync</Title>
     <Description>Offline-first data synchronization engine for .NET MAUI on iOS and Android. Local SQLite writes, change tracking, conflict resolution, and pluggable remote sync.</Description>
-    <PackageTags>dotnet-maui;maui;maui-plugin;maui-utilities;cross-platform;android;ios;nuget;nugetworld;offline;sync;offline-first;sqlite;synchronization;conflict-resolution;outbox</PackageTags>
+    <PackageTags>dotnet-maui;maui;maui-plugin;maui-utilities;cross-platform;android;ios;nuget;mauiessentials;offline;sync;offline-first;sqlite;synchronization;conflict-resolution;outbox</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync</PackageProjectUrl>
