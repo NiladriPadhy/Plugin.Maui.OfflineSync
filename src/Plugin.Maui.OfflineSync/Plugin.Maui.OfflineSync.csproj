@@ -15,9 +15,9 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 
     <PackageId>Plugin.Maui.OfflineSync</PackageId>
-    <Title>.NET MAUI OfflineSync Plugin</Title>
+    <Title>.NET MAUI OfflineSync — offline-first SQLite sync</Title>
     <Description>Offline-first data synchronization engine for .NET MAUI on iOS and Android. Local SQLite writes, change tracking, conflict resolution, and pluggable remote sync.</Description>
-    <PackageTags>dotnet-maui;maui;offline;sync;offline-first;sqlite;ios;android;plugin;synchronization</PackageTags>
+    <PackageTags>dotnet-maui;maui;maui-plugin;maui-utilities;cross-platform;android;ios;nuget;nugetworld;offline;sync;offline-first;sqlite;synchronization;conflict-resolution;outbox</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync</PackageProjectUrl>
@@ -29,8 +29,9 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>portable</DebugType>
-    <Version>1.0.3</Version>
-    <PackageVersion>1.0.3</PackageVersion>
+    <Version>1.0.4</Version>
+    <PackageReleaseNotes>LLM-friendly README, llms.txt, AGENTS.md, and improved NuGet title/tags for coding-agent discoverability.</PackageReleaseNotes>
+    <PackageVersion>1.0.4</PackageVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <IsPackable>true</IsPackable>
