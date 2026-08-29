@@ -13,7 +13,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
     private readonly IBackgroundSyncScheduler _background;
     private readonly ConcurrentDictionary<string, object> _collections = new(StringComparer.OrdinalIgnoreCase);
     private readonly SemaphoreSlim _syncLock = new(1, 1);
-    private readonly HashSet<string> _knownCollections = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, byte> _knownCollections = new(StringComparer.OrdinalIgnoreCase);
     private CancellationTokenSource? _autoCts;
     private Task? _autoLoop;
     private bool _initialized;
@@ -50,7 +50,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
     public ISyncCollection<T> GetCollection<T>(string? name = null) where T : SyncableEntity, new()
     {
         var collection = string.IsNullOrWhiteSpace(name) ? typeof(T).Name : name;
-        _knownCollections.Add(collection);
+        _knownCollections.TryAdd(collection, 0);
         return (ISyncCollection<T>)_collections.GetOrAdd(
             collection,
             key => new SyncCollection<T>(key, this, _store, _options));
@@ -59,7 +59,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
     public async Task<SyncResult> SyncAsync(CancellationToken cancellationToken = default)
     {
         await EnsureInitializedAsync(cancellationToken).ConfigureAwait(false);
-        var collections = _knownCollections
+        var collections = _knownCollections.Keys
             .Concat(await _store.GetKnownCollectionsAsync(cancellationToken).ConfigureAwait(false))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
@@ -103,7 +103,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(collection);
         await EnsureInitializedAsync(cancellationToken).ConfigureAwait(false);
-        _knownCollections.Add(collection);
+        _knownCollections.TryAdd(collection, 0);
 
         if (_options.LocalOnly)
         {
@@ -209,20 +209,39 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
         }
     }
 
-    public Task StopAutoSyncAsync()
+    public async Task StopAutoSyncAsync()
     {
         _network.ConnectivityChanged -= OnConnectivityChanged;
         _background.Cancel();
 
-        if (_autoCts is not null)
+        var cts = _autoCts;
+        var loop = _autoLoop;
+        _autoCts = null;
+        _autoLoop = null;
+
+        if (cts is not null)
         {
-            _autoCts.Cancel();
-            _autoCts.Dispose();
-            _autoCts = null;
+            try
+            {
+                cts.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
         }
 
-        _autoLoop = null;
-        return Task.CompletedTask;
+        if (loop is not null)
+        {
+            try
+            {
+                await loop.ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is OperationCanceledException or TaskCanceledException)
+            {
+            }
+        }
+
+        cts?.Dispose();
     }
 
     public async Task<int> GetPendingCountAsync(string? collection = null, CancellationToken cancellationToken = default)
@@ -250,7 +269,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
 
     internal void NotifyCollectionChanged(string collection, string entityId, ChangeOperation operation, bool fromRemote)
     {
-        _knownCollections.Add(collection);
+        _knownCollections.TryAdd(collection, 0);
         CollectionChanged?.Invoke(this, new CollectionChangedEventArgs
         {
             Collection = collection,
@@ -296,6 +315,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
                 break;
             }
 
+            var progressed = false;
             foreach (var accepted in response.Accepted)
             {
                 var change = pending.FirstOrDefault(item => item.EntityId == accepted.Id);
@@ -306,6 +326,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
 
                 await _store.MarkChangeSyncedAsync(change, accepted.Version, accepted.UpdatedAtUtc, cancellationToken: cancellationToken).ConfigureAwait(false);
                 pushed++;
+                progressed = true;
                 NotifyCollectionChanged(collection, accepted.Id, change.Operation, fromRemote: false);
             }
 
@@ -318,6 +339,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
                 }
 
                 conflicts++;
+                progressed = true;
                 await ResolvePushConflictAsync(collection, change, remoteConflict, cancellationToken).ConfigureAwait(false);
             }
 
@@ -331,6 +353,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
 
                 var permanentlyFailed = change.AttemptCount + 1 >= _options.MaxRetryAttempts;
                 await _store.MarkChangeFailedAsync(change, rejected.Error ?? "Remote rejected the change.", permanentlyFailed, cancellationToken).ConfigureAwait(false);
+                progressed = true;
                 if (permanentlyFailed)
                 {
                     failed++;
@@ -339,7 +362,7 @@ public sealed class OfflineSyncEngine : IOfflineSyncEngine
                 errors.Add(rejected.Error ?? $"Change {rejected.Id} was rejected.");
             }
 
-            if (response.Accepted.Count == 0 && response.Conflicts.Count == 0)
+            if (!progressed)
             {
                 break;
             }

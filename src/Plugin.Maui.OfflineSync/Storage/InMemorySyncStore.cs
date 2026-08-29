@@ -16,7 +16,7 @@ public sealed class InMemorySyncStore : ISyncStore
     public Task<SyncDocument?> GetAsync(string collection, string id, CancellationToken cancellationToken = default)
     {
         _documents.TryGetValue(Key(collection, id), out var document);
-        return Task.FromResult(document);
+        return Task.FromResult(document is null ? null : Clone(document));
     }
 
     public Task<IReadOnlyList<SyncDocument>> GetAllAsync(string collection, bool includeDeleted = false, CancellationToken cancellationToken = default)

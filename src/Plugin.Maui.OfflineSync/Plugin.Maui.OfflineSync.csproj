@@ -29,9 +29,9 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>portable</DebugType>
-    <Version>1.0.5</Version>
-    <PackageReleaseNotes>Rebrand package metadata and catalog references to MauiEssentials.</PackageReleaseNotes>
-    <PackageVersion>1.0.5</PackageVersion>
+    <Version>1.0.6</Version>
+    <PackageReleaseNotes>Reliability fixes for races, dispose/lifecycle, and lock or session correctness.</PackageReleaseNotes>
+    <PackageVersion>1.0.6</PackageVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <IsPackable>true</IsPackable>
