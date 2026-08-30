@@ -20,8 +20,8 @@
     <PackageTags>dotnet-maui;maui;maui-plugin;maui-utilities;cross-platform;android;ios;nuget;mauiessentials;offline;sync;offline-first;sqlite;synchronization;conflict-resolution;outbox</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IncludeSymbols>true</IncludeSymbols>
@@ -29,9 +29,9 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>portable</DebugType>
-    <Version>1.0.6</Version>
-    <PackageReleaseNotes>Reliability fixes for races, dispose/lifecycle, and lock or session correctness.</PackageReleaseNotes>
-    <PackageVersion>1.0.6</PackageVersion>
+    <Version>1.0.7</Version>
+    <PackageReleaseNotes>Repository moved to nuvyntralabs. Package project and repository URLs updated.</PackageReleaseNotes>
+    <PackageVersion>1.0.7</PackageVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <IsPackable>true</IsPackable>

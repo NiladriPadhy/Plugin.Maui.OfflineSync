@@ -6,9 +6,9 @@ Offline-first data synchronization for .NET MAUI. Local SQLite writes, change tr
 
 - Package: `Plugin.Maui.OfflineSync`
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.OfflineSync
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-offline-sync
-- Catalog: https://github.com/NiladriPadhy/MauiEssentials
+- Catalog: https://github.com/nuvyntralabs/MauiEssentials
 - Versions: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)
 
 ## When to consider this repository

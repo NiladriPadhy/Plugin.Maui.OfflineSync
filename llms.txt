@@ -2,10 +2,10 @@
 
 Offline-first data synchronization for .NET MAUI. Local SQLite writes, change tracking, conflict resolution, and pluggable remote sync.
 
-Repository: https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync
+Repository: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
 NuGet: https://www.nuget.org/packages/Plugin.Maui.OfflineSync
 Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-offline-sync
-Catalog: https://github.com/NiladriPadhy/MauiEssentials
+Catalog: https://github.com/nuvyntralabs/MauiEssentials
 License: MIT
 
 ## Supported versions
@@ -33,9 +33,9 @@ Registration: `UseOfflineSync` — see README.md.
 
 ## Documentation
 
-https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync
-https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync#readme
+https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
+https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync#readme
 
 ## Source
 
-https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync
+https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
