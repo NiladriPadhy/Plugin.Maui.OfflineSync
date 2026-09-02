@@ -14,6 +14,10 @@ net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)
 
 Platforms: Android, iOS. Mac Catalyst and Windows are not primary targets.
 
+## Current release
+
+1.0.9 (3 September 2026). Auto-sync isolates failures so a failed push does not crash the process. Subscribe to SyncCompleted / StatusChanged when the UI must surface errors. Android JobFinished is null-safe.
+
 ## Installation
 
 dotnet add package Plugin.Maui.OfflineSync
