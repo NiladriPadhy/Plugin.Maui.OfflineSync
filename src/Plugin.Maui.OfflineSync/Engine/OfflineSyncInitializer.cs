@@ -12,7 +12,19 @@ internal sealed class OfflineSyncInitializer : IMauiInitializeService
         var options = services.GetRequiredService<OfflineSyncOptions>();
         if (options.AutoSync)
         {
-            _ = engine.StartAutoSyncAsync();
+            _ = StartAutoSyncSafeAsync(engine);
+        }
+    }
+
+    static async Task StartAutoSyncSafeAsync(IOfflineSyncEngine engine)
+    {
+        try
+        {
+            await engine.StartAutoSyncAsync().ConfigureAwait(false);
+        }
+        catch (Exception)
+        {
+            // StatusChanged / SyncCompleted on the engine surface the failure to the host.
         }
     }
 }

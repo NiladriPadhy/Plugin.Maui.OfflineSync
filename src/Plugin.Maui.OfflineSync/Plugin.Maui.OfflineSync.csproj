@@ -18,6 +18,9 @@
     <Title>.NET MAUI OfflineSync — offline-first SQLite sync</Title>
     <Description>Offline-first data synchronization engine for .NET MAUI on iOS and Android. Local SQLite writes, change tracking, conflict resolution, and pluggable remote sync.</Description>
     <PackageTags>dotnet-maui;maui;maui-plugin;maui-utilities;cross-platform;android;ios;nuget;mauiessentials;offline;sync;offline-first;sqlite;synchronization;conflict-resolution;outbox</PackageTags>
+    <Authors>Niladri</Authors>
+    <Company>MauiEssentials</Company>
+    <Copyright>Copyright © 2026 Niladri</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://nuvyntralabs.github.io/packages/plugin-maui-offline-sync/</PackageProjectUrl>
@@ -29,9 +32,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>portable</DebugType>
-    <Version>1.0.8</Version>
-    <PackageReleaseNotes>Point PackageProjectUrl at the Nuvyntra Labs package page.</PackageReleaseNotes>
-    <PackageVersion>1.0.8</PackageVersion>
+    <Version>1.0.9</Version>
+    <PackageReleaseNotes>Guard Android JobFinished and isolate auto-sync exceptions so a failed push cannot crash the process.</PackageReleaseNotes>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
     <IsPackable>true</IsPackable>

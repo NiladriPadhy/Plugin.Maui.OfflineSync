@@ -25,7 +25,10 @@ public sealed class OfflineSyncJobService : JobService
             }
             finally
             {
-                JobFinished(@params, false);
+                if (@params is not null)
+                {
+                    JobFinished(@params, false);
+                }
             }
         });
 

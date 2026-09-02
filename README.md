@@ -34,6 +34,8 @@ builder
     });
 ```
 
+Timer and connectivity-driven auto-sync catch exceptions so a failed push does not crash the process. Subscribe to `SyncCompleted` / `StatusChanged`, or call `SyncAsync` yourself, when the UI must surface errors.
+
 ```csharp
 public sealed class TodoItem : SyncableEntity
 {
@@ -138,6 +140,8 @@ Set `EnableBackgroundSync = true`.
 ```
 
 The identifier is `OfflineSyncBackground.iOSTaskIdentifier`.
+
+On Android the job service finishes the job even if the system callback arrives after the service instance is gone.
 
 ## Sample
 
