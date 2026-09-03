@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    with:
+      runner: ubuntu-latest
+      frameworks: net10.0
+      pack: true
+      test: true
+
+  macos:
+    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    with:
+      runner: macos-latest
+      frameworks: net10.0,net10.0-android,net10.0-ios
+      pack: true
+      test: true
+      install_workloads: true
+      workloads: maui-android maui-ios maui-maccatalyst
