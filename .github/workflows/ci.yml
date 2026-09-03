@@ -35,15 +35,24 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: nuvyntralabs/MauiEssentials
+          ref: main
           path: .ci-tools
-          sparse-checkout: |
-            .github/scripts
-          sparse-checkout-cone-mode: true
 
       - name: Check NUGET_KEY and published version
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        run: python3 .ci-tools/.github/scripts/check-nuget-release.py --plugin-root .
+        run: |
+          set -euo pipefail
+          script=".github/scripts/check-nuget-release.py"
+          if [ ! -f "$script" ]; then
+            script=".ci-tools/.github/scripts/check-nuget-release.py"
+          fi
+          if [ ! -f "$script" ]; then
+            echo "::error::check-nuget-release.py not found after hub checkout"
+            find .ci-tools -type f | sort | head -100
+            exit 1
+          fi
+          python3 "$script" --plugin-root .
 
   linux:
     needs: [version-check]
