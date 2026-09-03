@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       publish:
-        description: Push macOS .nupkg and .snupkg to NuGet.org
+        description: Unused. CI publishes after key, version, test, and pack checks succeed
         required: false
         type: boolean
         default: false
@@ -39,6 +39,7 @@ jobs:
           path: .ci-tools
 
       - name: Check NUGET_KEY and published version
+        id: check
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
@@ -54,30 +55,40 @@ jobs:
           fi
           python3 "$script" --plugin-root .
 
-  linux:
+  test:
+    name: Unit tests
     needs: [version-check]
-    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    uses: ./.github/workflows/plugin-ci.yml
+    with:
+      runner: ubuntu-latest
+      frameworks: net10.0
+      pack: false
+      test: true
+      job_name: Unit tests
+
+  linux:
+    needs: [test]
+    uses: ./.github/workflows/plugin-ci.yml
     with:
       runner: ubuntu-latest
       frameworks: net10.0
       pack: true
-      test: true
+      test: false
 
   macos:
-    needs: [version-check]
-    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    needs: [test]
+    uses: ./.github/workflows/plugin-ci.yml
     with:
       runner: macos-latest
       frameworks: net10.0,net10.0-android,net10.0-ios
       pack: true
-      test: true
+      test: false
       install_workloads: true
       workloads: maui-android maui-ios maui-maccatalyst
 
   publish:
     name: NuGet.org
     needs: [linux, macos]
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:
