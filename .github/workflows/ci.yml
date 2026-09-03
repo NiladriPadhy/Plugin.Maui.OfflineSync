@@ -20,7 +20,33 @@ permissions:
   contents: read
 
 jobs:
+  version-check:
+    name: NuGet release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout package repo
+        uses: actions/checkout@v4
+
+      - name: Fetch hub CI scripts
+        uses: actions/checkout@v4
+        with:
+          repository: nuvyntralabs/MauiEssentials
+          path: .ci-tools
+          sparse-checkout: |
+            .github/scripts
+          sparse-checkout-cone-mode: true
+
+      - name: Check NUGET_KEY and published version
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        run: python3 .ci-tools/.github/scripts/check-nuget-release.py --plugin-root .
+
   linux:
+    needs: [version-check]
     uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
     with:
       runner: ubuntu-latest
@@ -29,6 +55,7 @@ jobs:
       test: true
 
   macos:
+    needs: [version-check]
     uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
     with:
       runner: macos-latest
